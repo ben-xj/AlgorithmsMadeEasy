@@ -1,5 +1,5 @@
 """
-solve the following problem with Augmented Lagrange Multiplier method
+solve the following problem with Alternating Direction Multiplier Method
 min f(x) = -3x[0] - 5x[1]
 s.t. x[0] + x[2] = 4
     2x[1] + x[3] = 12
@@ -20,10 +20,12 @@ def f(x):
 
 def update_x(x, lambda_):
     """ update x with gradient descent """
-    lagrangian_function(x, lambda_).backward()
-    new_x = x - eta * x.grad
-    x.data = new_x.clamp(min=0)
-    x.grad.zero_()
+    for i in range(len(x)):
+        # not the best way to calculate gradient
+        lagrangian_function(x, lambda_).backward()
+        x_i = x[i] - eta * x.grad[i]
+        x.data[i] = max(0, x_i)
+        x.grad.zero_()
 
 
 def update_lambda(lambda_):

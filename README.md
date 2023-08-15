@@ -16,4 +16,5 @@
 | --- | --- | --- |
 | 1 | [dijkstra/dijkstra_plain.py](dijkstra/dijkstra_plain.py) | 【简单算法】最短路径——纯手动迪节斯特拉算法 |
 | 2 | [lagrange/alm.py](lagrange/alm.py) | 【简单算法】线性规划——手把手实现增广拉格朗日乘子法 |
+| 3 | [lagrange/admm.py](lagrange/admm.py) | 【简单算法】线性规划——手把手实现交替方向乘子法ADMM |
 
