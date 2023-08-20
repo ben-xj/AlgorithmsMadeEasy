@@ -45,12 +45,11 @@ def solve_mip_model(N,
 
         problem += sum(z[i][j] for j in range(M)) <= EN
 
-        problem += x[i].getUb() * y[i] >= x[i]
-        # problem += y[i] <= x[i]
+        for j in range(M):
+            problem += y[i] >= z[i][j]
 
         for j in range(M):
             problem += t[i][j].getUb() * z[i][j] >= t[i][j]
-            # problem += z[i][j] <= t[i][j]
 
     # Objective
     objective = sum(x[i] for i in range(N))

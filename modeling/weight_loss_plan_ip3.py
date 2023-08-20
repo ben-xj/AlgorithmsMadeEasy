@@ -29,6 +29,8 @@ def solve_mip_model(N,
          for i in range(N)]
 
     # Constraints
+    problem += z[0][2] == 1
+    problem += y[0] == 1
     for i in range(N):
         problem += x[i] == sum(c[j] * t[i][j] for j in range(M))
         problem += sum(t[i][j] for j in range(M)) <= max_day_time
@@ -45,12 +47,11 @@ def solve_mip_model(N,
 
         problem += sum(z[i][j] for j in range(M)) <= EN
 
-        problem += x[i].getUb() * y[i] >= x[i]
-        # problem += y[i] <= x[i]
+        for j in range(M):
+            problem += y[i] >= z[i][j]
 
         for j in range(M):
             problem += t[i][j].getUb() * z[i][j] >= t[i][j]
-            # problem += z[i][j] <= t[i][j]
 
     # Objective
     objective = sum(x[i] for i in range(N))
