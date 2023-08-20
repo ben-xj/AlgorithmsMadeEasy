@@ -14,8 +14,9 @@
 
 | 序号 | 文件 | 视频内容 |
 | --- | --- | --- |
-| 1 | [dijkstra/dijkstra_plain.py](dijkstra/dijkstra_plain.py) | 【简单算法】最短路径——纯手动迪节斯特拉算法 |
-| 2 | [lagrange/alm.py](lagrange/alm.py) | 【简单算法】线性规划——手把手实现增广拉格朗日乘子法 |
-| 3 | [lagrange/admm.py](lagrange/admm.py) | 【简单算法】线性规划——手把手实现交替方向乘子法ADMM |
-| 4 | [modeling/weight_loss_plan_ip.py](modeling/weight_loss_plan_ip.py) | 【简单算法】关于我用数学规划秒秒钟做了一个月的瘦身计划这件事 |
+| 1 | [dijkstra/dijkstra_plain.py](dijkstra/dijkstra_plain.py) | 最短路径——纯手动迪节斯特拉算法 |
+| 2 | [lagrange/alm.py](lagrange/alm.py) | 线性规划——手把手实现增广拉格朗日乘子法 |
+| 3 | [lagrange/admm.py](lagrange/admm.py) | 线性规划——手把手实现交替方向乘子法ADMM |
+| 4 | [modeling/weight_loss_plan_ip.py](modeling/weight_loss_plan_ip.py) | 关于我用数学规划秒秒钟做了一个月的瘦身计划这件事 |
+| 5 | [modeling/weight_loss_plan_ip2.py](modeling/weight_loss_plan_ip2.py) / [modeling/weight_loss_plan_ip3.py](modeling/weight_loss_plan_ip3.py) | 数学建模瘦身法进阶，1秒还不够快？！ |
 
