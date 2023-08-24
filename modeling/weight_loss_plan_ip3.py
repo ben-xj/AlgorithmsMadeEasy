@@ -22,7 +22,7 @@ def solve_mip_model(N,
     t = [[
         pulp.LpVariable(f't_{i}_{j}',
                         lowBound=0,
-                        upBound=max_day_time,
+                        upBound=max_single_day_time,
                         cat=pulp.LpInteger) for j in range(M)
     ] for i in range(N)]
     z = [[pulp.LpVariable(f'z_{i}_{j}', cat=pulp.LpBinary) for j in range(M)]
@@ -34,8 +34,7 @@ def solve_mip_model(N,
     for i in range(N):
         problem += x[i] == sum(c[j] * t[i][j] for j in range(M))
         problem += sum(t[i][j] for j in range(M)) <= max_day_time
-        for j in range(M):
-            problem += t[i][j] <= max_single_day_time
+  
         if i <= N - min_cont - 1:
             problem += sum(y[k]
                            for k in range(i, i + min_cont + 1)) <= min_cont
@@ -76,7 +75,7 @@ def solve_mip_model(N,
 
 if __name__ == '__main__':
     # Define your parameters here
-    N = 30
+    N = 40
     M = 6
     c = [15, 20, 30, 28, 27,
          18]  # List of consumption values for each type of exercise
