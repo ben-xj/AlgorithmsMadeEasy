@@ -9,12 +9,12 @@ from loguru import logger
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+
 from heuristics.fund_strategy.configuration import Conf
 from heuristics.fund_strategy.enums import trade_type
-
 from heuristics.fund_strategy.solution import Solution
 from heuristics.accept import AcceptCriterion, HillClimbing
-from utils.time import days_between
+from utils.time import date_to_str, days_between
 
 
 class OperationRecroder:
@@ -23,6 +23,14 @@ class OperationRecroder:
 
     def record(self, trade):
         self.history.append(trade)
+
+    def __repr__(self):
+        history_dict = {}
+        for i in range(len(dates)):
+            if self.history[i] != trade_type.HOLD:
+                history_dict[date_to_str(dates[i])] = (
+                    self.history[i], prices[i])
+        return str(history_dict)
 
     def draw(self):
         fig, ax = plt.subplots(figsize=(30, 6))
@@ -45,8 +53,8 @@ class OperationRecroder:
         sell_dates = [dates[i] for i in sell_indices]
         sell_prices = [prices[i] for i in sell_indices]
 
-        ax.scatter(buy_dates, buy_prices, c='g', marker='^', s=20)
-        ax.scatter(sell_dates, sell_prices, c='r', marker='v', s=20)
+        ax.scatter(buy_dates, buy_prices, c='g', marker='^', s=40)
+        ax.scatter(sell_dates, sell_prices, c='r', marker='v', s=40)
 
         # 添加轴标签等
         ax.set_xlabel('Date')
@@ -123,7 +131,7 @@ def new_solution_from(sol: Solution):
     """
     delta1 = random() * 0.2 - 0.1  # [-0.1, 0.1)
     delta2 = random() * 0.2 - 0.1  # [-0.1, 0.1)
-    # make sure in range [0.001, 0.5]
+    # make sure in range [0.001, 0.2]
     new_x1 = min(0.2, max(0.001, sol.x1 + delta1))
     new_x2 = min(0.2, max(0.001, sol.x2 + delta2))
     return Solution(new_x1, new_x2)
@@ -169,11 +177,12 @@ def read_history(filepath: str):
 
 if __name__ == '__main__':
     logger.remove()
-    logger.add("log/hill_climbing.log")
+    logger.add("log/hill_climbing.log", rotation="1 MB")
     dates, prices = read_history("data/003579.csv")
     accept_criterion = HillClimbing()
     conf = Conf(1000, 10000, 200, 1000, 7)
     best_sol, best_return, history = search(conf, accept_criterion)
     print(best_sol)
     print(best_return)
+    # print(history)
     history.draw()
