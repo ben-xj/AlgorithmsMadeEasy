@@ -1,5 +1,5 @@
 """
-A hill climbing algorithm for solving the best grid strategy.
+Hill climbing and simulated annealing algorithms for solving the best grid strategy.
 """
 
 from datetime import date
@@ -13,7 +13,7 @@ import matplotlib.dates as mdates
 from heuristics.fund_strategy.configuration import Conf
 from heuristics.fund_strategy.enums import trade_type
 from heuristics.fund_strategy.solution import Solution
-from heuristics.accept import AcceptCriterion, HillClimbing
+from heuristics.accept import AcceptCriterion, HillClimbing, SimulatedAnnealing
 from utils.time import date_to_str, days_between
 
 
@@ -179,8 +179,9 @@ if __name__ == '__main__':
     logger.remove()
     logger.add("log/hill_climbing.log", rotation="1 MB")
     dates, prices = read_history("data/003579.csv")
-    accept_criterion = HillClimbing()
-    conf = Conf(1000, 10000, 200, 1000, 7)
+    # accept_criterion = HillClimbing()
+    accept_criterion = SimulatedAnnealing(200, 0.99)
+    conf = Conf(200, 10000, 200, 1000, 7)
     best_sol, best_return, history = search(conf, accept_criterion)
     print(best_sol)
     print(best_return)

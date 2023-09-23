@@ -23,9 +23,10 @@ class SimulatedAnnealing:
         self.temperature = init_T
         self.rate = rate
 
-    def update_temperature(self):
+    def update(self):
         self.temperature *= self.rate
 
     def accept(self, cur, new):
         sa_prob = (cur - new) / self.temperature
+        self.update()
         return random.random() <= sa_prob
